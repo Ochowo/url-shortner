@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+[![Build Status](https://travis-ci.com/Ochowo/url-shortner.svg?branch=develop)](https://travis-ci.com/Ochowo/url-shortner)
+[![Maintainability](https://api.codeclimate.com/v1/badges/029dca5258a6de15f200/maintainability)](https://codeclimate.com/github/Ochowo/url-shortner/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/Ochowo/url-shortner/badge.svg?branch=develop)](https://coveralls.io/github/Ochowo/url-shortner?branch=develop)
 
 ## Available Scripts
 
