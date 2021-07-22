@@ -35,7 +35,6 @@ class Authenticate {
       return response.send(res);
     }
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-      console.log(decoded, 'pppppppppppppppppppp');
       if (err) {
         response.setError(403, 'Token not verified');
         return response.send(res);

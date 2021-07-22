@@ -9,7 +9,7 @@ import { fields } from '../../helpers/pageConfig/signup';
 import { getInitialFormValues } from '../../helpers/utils';
 import AuthTemplate from '../../components/AuthTemplate/AuthTemplate';
 import Form from '../../components/Form/Form';
-import { authentication, authSelector } from './signUpSlice';
+import { authentication, authSelector } from './authSlice';
 import Toast from '../../components/Toast/Toast';
 
 const Signup = () => {
@@ -48,7 +48,6 @@ const Signup = () => {
     }
     return null;
   };
-  console.log('here', 'submit:', formik.isSubmitting, 'dirty:', formik.dirty, 'valid:', formik.isValid);
   return (
     <>
       {hasErrors && <Toast hasErrors={hasErrors} error={error} />}

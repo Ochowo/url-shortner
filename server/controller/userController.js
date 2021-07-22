@@ -50,49 +50,18 @@ class User {
     response.setSuccess(201, 'User created successfully', data);
     return response.send(res);
   }
-  // const result = users.data.map((userInfo) => userInfo.email === email);
-  // if (result.includes(email) === true) {
-  //   response.setError(409, 'User already exist');
-  // } else {
-  //   console.log('happy', req.body);
-
-  // console.log(users, req.body);
-  // users.data.push(user);
-  // let userDetails;
-  // for (let i = 0; i < users.data.length; i += 1) {
-  //   if (users.data[i].email === email) {
-  //     userDetails = users.data[i];
-  //   }
-  // if (userDetails !== null || userDetails !== undefined) {
-  // const token = Authenticate.generateToken(
-  //   userDetails.id, userDetails.email, userDetails.firstName, userDetails.lastName,
-  // );
-  // const userId = userDetails.id;
-  //       const data = {
-  //         user,
-  //         token,
-  //       };
-  //       response.setSuccess(201, 'User created successfully', data);
-  //     //}
-  //   }
-  // }
 
   static async signin(req, res) {
-    console.log('goof');
     const newUser = {
       email: req.body.email,
       password: req.body.password,
     };
-    console.log(newUser.password, req.body.oldPassoword, 'puy');
     const validPassword = await bcrypt.compare(newUser.password, req.body.oldPassoword);
-    if (validPassword) {
-      console.log('yaaaaa');
-    }
     if (!validPassword) {
       response.setError(400, 'User Authentication Failed');
     } else {
       const token = Authenticate.generateToken(
-        req.body.id, newUser.email, newUser.firstName, newUser.lastName,
+        req.body.id, newUser.email, req.body.firstName, req.body.lastName,
       );
       const data = {
         token,

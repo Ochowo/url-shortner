@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
@@ -15,7 +15,6 @@ import Paper from '@material-ui/core/Paper';
 import { useDispatch } from 'react-redux';
 import Button from '../Button/Button';
 import { redirectUrl, noAuthredirectUrl } from '../../features/DashBoard/urlSlice';
-// import { loading } from '../../features/Signup/signUpSlice';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -45,29 +44,22 @@ const App = ({ products, noAuth, isLoading }) => {
   const dispatch = useDispatch();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [product, setProduct] = React.useState(products);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-  useEffect(() => {
-    console.log('vjhg');
-    setProduct(products);
-  }, [products]);
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 5));
     setPage(0);
   };
   const onClick = (url, shortUrl) => {
-    console.log('clicking', noAuth, url);
     if (noAuth) {
-      console.log('right');
       dispatch(noAuthredirectUrl(shortUrl));
     } else {
       dispatch(redirectUrl(shortUrl));
     }
     window.location.href = url;
   };
-  console.log(product, 'lkj');
   const classes = useStyles();
   return (
     <>
@@ -94,25 +86,22 @@ const App = ({ products, noAuth, isLoading }) => {
               <>
                 {' '}
                 {products !== null && products.slice(page * rowsPerPage, page
-                * rowsPerPage + rowsPerPage).map((item) => {
-                  console.log(products, product, 'good', item, 'purple');
-                  return (
-                    <StyledTableRow key={item.id}>
-                      <StyledTableCell component="th" scope="row">
-                        {item.url}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {item.shortUrl}
-                      </StyledTableCell>
-                      {!noAuth && (
+                * rowsPerPage + rowsPerPage).map((item) => (
+                  <StyledTableRow key={item.id}>
+                    <StyledTableCell component="th" scope="row">
+                      {item.url}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {item.shortUrl}
+                    </StyledTableCell>
+                    {!noAuth && (
                       <StyledTableCell align="right">
                         {item.clicks}
                       </StyledTableCell>
-                      )}
-                      <StyledTableCell align="right"><Button text="Redirect" className="border-2 border-mainBlue rounded text-mainBlue w-3/6 p-2 text-sm px-10 flex justify-center" onClick={() => onClick(item.url, item.shortUrl)} /></StyledTableCell>
-                    </StyledTableRow>
-                  );
-                })}
+                    )}
+                    <StyledTableCell align="right"><Button text="Redirect" className="border-2 border-mainBlue rounded text-mainBlue w-3/6 p-2 text-sm px-10 flex justify-center" onClick={() => onClick(item.url, item.shortUrl)} /></StyledTableCell>
+                  </StyledTableRow>
+                ))}
               </>
             )}
 
@@ -122,7 +111,7 @@ const App = ({ products, noAuth, isLoading }) => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={products.length}
+        count={products && products.length > 0 ? products.length : 0}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

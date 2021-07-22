@@ -5,7 +5,6 @@ const user = require('./controller/userController');
 const url = require('./controller/urlController');
 
 const PORT = process.env.PORT || 3001;
-console.log('here');
 const app = express();
 // const router = express.Router();
 app.use(express.urlencoded({ extended: true }));

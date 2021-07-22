@@ -14,22 +14,19 @@ const InputField = ({
   onBlur,
   touched,
   disabled,
-}) => {
-  console.log(error, touched, 'kjhgf');
-  return (
-    <input
-      autoComplete="off"
-      width={width}
-      type={type}
-      id={id}
-      placeholder={placeholder}
-      name={name}
-      value={value || ''}
-      onBlur={onBlur}
-      error={error}
-      onChange={onChange}
-      disabled={disabled}
-      className={
+}) => (
+  <input
+    width={width}
+    type={type}
+    id={id}
+    placeholder={placeholder}
+    name={name}
+    value={value || ''}
+    onBlur={onBlur}
+    error={error}
+    onChange={onChange}
+    disabled={disabled}
+    className={
       error && touched
         ? `border border-error font-medium p-2 rounded-md form-input focus:focus-input focus:border-2 text-error${
           moreStyles}`
@@ -39,9 +36,8 @@ const InputField = ({
   
           ${moreStyles}`
     }
-    />
-  );
-};
+  />
+);
 
 InputField.propTypes = {
   type: PropTypes.oneOf(['number', 'email', 'password', 'text', 'date'])

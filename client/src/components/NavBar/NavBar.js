@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { authSelector, logout } from '../../features/Signup/signUpSlice';
+import { authSelector, logout } from '../../features/Auth/authSlice';
 import logo from '../../images/logo.svg';
 import Button from '../Button/Button';
 import { clearData } from '../../features/DashBoard/urlSlice';
 
 const NavBar = () => {
-  const { isAuthenticated } = useSelector(authSelector);
+  const { isAuthenticated, user } = useSelector(authSelector);
   const dispatch = useDispatch();
   const onClick = async () => {
     dispatch(logout());
@@ -29,7 +29,7 @@ const NavBar = () => {
             {isAuthenticated ? (
               <>
                 {' '}
-                <div className="text-grey font-medium text-sm">Welcome Ochowo!</div>
+                <div className="text-grey font-medium text-sm">{`Welcome ${user.firstName}!`}</div>
                 <Button className="bg-mainBlue rounded text-white text-sm px-8 py-2" text="Logout" onClick={onClick} />
               </>
             ) : (

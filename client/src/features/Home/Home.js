@@ -11,18 +11,17 @@ const Home = () => {
     isAuthenticated,
   } = useSelector(urlSelector);
   const {
-    urls,
+    noAuthUrls,
     isLoading,
     hasErrors, error, created,
   } = useSelector(urlSelector);
-  console.log('heyyy', urls);
   const dispatch = useDispatch();
-  const savedData = urls !== null && urls !== undefined && urls.data.length > 0 ? urls.data : [];
+  const savedData = noAuthUrls !== null && noAuthUrls !== undefined
+  && noAuthUrls.data?.length > 0 ? noAuthUrls.data : [];
   const [urlList, setUrlList] = useState(savedData);
   const [value, setValue] = useState('');
 
   const handleClick = () => {
-    console.log('clicked', urls);
     if (value.length > 0) {
       dispatch(shortenNoAuthUrl({
         url: value,
@@ -31,15 +30,9 @@ const Home = () => {
     setUrlList(savedData);
   };
   useEffect(() => {
-    console.log('ive been called');
-    console.log(urls, 'back');
-    const res = dispatch(fetchnoAuthUrls());
+    dispatch(fetchnoAuthUrls());
     setUrlList(savedData);
-    console.log(res, 'resss');
-    console.log('here', urls, urlList);
   }, [isAuthenticated, created]);
-  console.log(urlList);
-  console.log(urls, 'ping');
   return (
     <>
       <NavBar />
@@ -60,7 +53,7 @@ const Home = () => {
         </div>
         <div className="mt-12">
           {hasErrors && <Toast hasErrors={hasErrors} error={error} />}
-          <Table products={urlList} isLoading={isLoading} />
+          <Table products={urlList} isLoading={isLoading} noAuth />
         </div>
       </div>
     </>

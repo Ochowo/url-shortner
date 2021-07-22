@@ -67,16 +67,12 @@ export const authentication = (newUser) => async (dispatch) => {
 
   try {
     const savedUsers = JSON.parse(localStorage.getItem('user'));
-    console.log('else');
     const registerUser = async () => {
       const response = await api.postApi('/api/signup', newUser);
-      console.log(response);
       if (response) {
         if (response.token) {
           // Save to local storage
           const { token, user } = response;
-          // const newUserArr = [...users, user];
-          console.log('pushed', savedUsers, user);
           const userArr = savedUsers || { data: [] };
 
           userArr.data.push(user);
@@ -95,16 +91,13 @@ export const authentication = (newUser) => async (dispatch) => {
         }
       }
     };
-    console.log(savedUsers, 'saved');
     if (savedUsers) {
-      console.log('herehgfds');
       const result = savedUsers.data.map((userInfo) => userInfo.email);
       if (result.includes(newUser.email)) {
         return dispatch(setError('User already exist'));
       }
       registerUser();
     } else {
-      console.log('waoooooo');
       return registerUser();
     }
   } catch (error) {
@@ -117,12 +110,10 @@ export const login = (newUser) => async (dispatch) => {
 
   try {
     const savedUsers = JSON.parse(localStorage.getItem('user'));
-    console.log('elseeee', savedUsers);
     let userDetails;
     const loginUser = async () => {
       for (let i = 0; i < savedUsers.data.length; i += 1) {
         if (savedUsers.data[i].email === newUser.email) {
-          console.log(savedUsers.data[i]);
           userDetails = savedUsers.data[i];
         }
       }
@@ -131,15 +122,17 @@ export const login = (newUser) => async (dispatch) => {
       const { email } = newUser;
       const { password } = newUser;
       const oldPassoword = userDetails.encryptedPassword;
+      const { firstName } = userDetails;
+      const lastName = userDetails.lasName;
       const userObject = {
         id,
         email,
         password,
         oldPassoword,
+        firstName,
+        lastName,
       };
-      console.log('user', oldPassoword);
       const response = await api.postApi('/api/login', userObject);
-      console.log(response, 'ttt');
       if (response) {
         if (response.token) {
           // Save to local storage
@@ -158,12 +151,9 @@ export const login = (newUser) => async (dispatch) => {
         return dispatch(setError('Login  failed'));
       }
     };
-    console.log(savedUsers, 'saved');
     if (savedUsers) {
       const result = savedUsers.data.map((userInfo) => userInfo.email);
-      console.log(result, 'herehgfds');
       if (result.includes(newUser.email)) {
-        console.log('includes');
         return loginUser();
       }
       dispatch(setError('User Email failed'));
@@ -172,7 +162,6 @@ export const login = (newUser) => async (dispatch) => {
       dispatch(setError('User Authentication failed'));
     }
   } catch (error) {
-    console.log(error, 'ppp');
     dispatch(setError(error));
   }
   return null;

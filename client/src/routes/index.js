@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch as Router, Route } from 'react-router-dom';
-import SignUp from '../features/Signup/Signup';
+import SignUp from '../features/Auth/Signup';
 import Dashboard from '../features/DashBoard/Dashboard';
-import SignIn from '../features/Signup/Signin';
+import SignIn from '../features/Auth/Signin';
 import PrivateRoute from './privateRoute';
 import Home from '../features/Home/Home';
 

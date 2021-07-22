@@ -9,7 +9,7 @@ import { fields } from '../../helpers/pageConfig/signin';
 import { getInitialFormValues } from '../../helpers/utils';
 import AuthTemplate from '../../components/AuthTemplate/AuthTemplate';
 import Form from '../../components/Form/Form';
-import { login, authSelector } from './signUpSlice';
+import { login, authSelector } from './authSlice';
 import Toast from '../../components/Toast/Toast';
 // import Label from '../../components/Label/Label';
 
@@ -34,9 +34,7 @@ const Signin = () => {
     formik.handleSubmit();
     return formik?.isValid && formik?.dirty;
   };
-  console.log(hasErrors);
   const handleLogin = async (details) => {
-    console.log('jjjj');
     if (validateLogin()) {
       try {
         dispatch(login({

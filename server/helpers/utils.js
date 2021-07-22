@@ -7,7 +7,6 @@ class Response {
   }
 
   setSuccess(statusCode, message, data) {
-    console.log(statusCode, message, data, 'data');
     this.statusCode = statusCode;
     this.message = message;
     this.data = data;
