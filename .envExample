@@ -1,0 +1,3 @@
+ESLINT_NO_DEV_ERRORS=true
+SECRET_KEY="random string"
+DISABLE_ESLINT_PLUGIN=true
